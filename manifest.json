@@ -1,0 +1,13 @@
+{
+   "Name": "SDVX3",
+   "Author": "avarisc",
+   "Version": {
+      "MajorVersion": 0,
+      "MinorVersion": 0,
+      "PatchVersion": 1,
+      "Build": null
+   },
+   "Description": "An unusual mod.",
+   "UniqueID": "avarisc.sdvx3",
+   "EntryDll": "SDVX3.dll"
+}
