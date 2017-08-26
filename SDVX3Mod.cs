@@ -29,10 +29,13 @@ namespace SDVX3
             this.Monitor.Log("SDVX3 is loaded.");
             //always create paths like so: string path = Path.Combine(helper.DirectoryPath, "assets", "asset.xnb");
 
+            //step -1: install code patches
+            Patcher.InstallPatches();
+
             //step zero: try to add an item
             //both Game1.objectInformation and Game1.objectSpriteSheet are loaded by Game1.TranslateFields
             //add base object information
-            Game1.objectInformation.Add(itemID, "Gibberish / 375 / -300 / Basic - 26 / Gibberish / These look quite special.");
+            Game1.objectInformation.Add(itemID, "CustomItem / 375 / -300 / Basic - 26 / CustomItem / A custom item that isn't loaded properly.");
             //load our custom texture
             texture = helper.Content.Load<Texture2D>(Path.Combine("Content", "test.png"));
 
