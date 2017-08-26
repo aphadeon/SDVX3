@@ -66,6 +66,36 @@ namespace SDVX3
             return true;
         }
 
+        public override void updateWhenCurrentLocation(GameTime time)
+        {
+            if (this.lightSource != null && this.isOn)
+            {
+                Game1.currentLightSources.Add(this.lightSource);
+            }
+            if (this.heldObject != null && this.heldObject.lightSource != null)
+            {
+                Game1.currentLightSources.Add(this.heldObject.lightSource);
+            }
+            if (this.shakeTimer > 0)
+            {
+                this.shakeTimer -= time.ElapsedGameTime.Milliseconds;
+                if (this.shakeTimer <= 0)
+                {
+                    this.health = 10;
+                }
+            }
+            if (this.parentSheetIndex == 590 && Game1.random.NextDouble() < 0.01)
+            {
+                this.shakeTimer = 100;
+            }
+            /* errors
+            if (this.bigCraftable && this.name.Equals("Slime Ball"))
+            {
+                this.parentSheetIndex = 56 + (int)(time.TotalGameTime.TotalMilliseconds % 600.0 / 100.0);
+            }
+            */
+        }
+
         public override bool canBeGivenAsGift()
         {
             return false;
@@ -170,6 +200,13 @@ namespace SDVX3
             }
         }
 
+        /* todo? possibly?
+        public override void drawAsProp(SpriteBatch b)
+        {
+
+        }
+        */
+
         //return something to have it packed into the serialization along with ModItemId
         //can't use '::' in the metadata string, as it's used to tokenise the serialized data
         public virtual string GetMetadata()
@@ -236,6 +273,7 @@ namespace SDVX3
             //o.preservedParentSheetIndex = placeholderId;
 
             //pack our secret sauce
+            if (String.IsNullOrEmpty(name)) name = "";
             o.name = name.Replace("::", "_") + "::SDVX3.SimpleObjects." + ModItemId + "::" + GetMetadata();
 
             o.bigCraftable = false; //not supported

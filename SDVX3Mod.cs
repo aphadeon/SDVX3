@@ -52,6 +52,23 @@ namespace SDVX3
 
         private void ControlEvents_KeyReleased(object sender, EventArgsKeyPressed e)
         {
+            //debug, press V to max friendship with all aquaintences
+            if(e.KeyPressed == Microsoft.Xna.Framework.Input.Keys.V)
+            {
+                int maxFriend = 10 * 250;
+                foreach (NPC current in Utility.getAllCharacters())
+                {
+                    if (Game1.player.friendships.ContainsKey(current.name))
+                    {
+                        Game1.player.friendships[current.name][0] = maxFriend;
+                    } else
+                    {
+                        Game1.player.friendships.Add(current.name, new int[4]);
+                        Game1.player.friendships[current.name][0] = maxFriend;
+                    }
+                }
+            }
+
             //debug, press Z to get location/position
             if (e.KeyPressed == Microsoft.Xna.Framework.Input.Keys.Z)
             {
