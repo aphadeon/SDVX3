@@ -32,14 +32,11 @@ namespace SDVX3
             {
                 if(who.mostRecentlyGrabbedItem is SimpleObject)
                 {
-
-                    who.currentLocation.temporarySprites.Add(new TemporaryAnimatedSprite(SDVX3Mod.texture, (who.mostRecentlyGrabbedItem as SimpleObject).GetSpriteSourceRect(), 2500f, 1, 0, who.position + new Vector2(0f, (float)(-(float)Game1.tileSize * 3 + 4)), false, false)
-                    {
-                        motion = new Vector2(0f, -0.1f),
-                        scale = (float)Game1.pixelZoom,
-                        layerDepth = 1f
-                    });
-                    who.currentLocation.temporarySprites.Add(new TemporaryAnimatedSprite(10, who.position + new Vector2((float)(Game1.tileSize / 2), (float)(-(float)Game1.tileSize * 3 / 2)), Color.White, 8, false, 100f, 0, -1, -1f, -1, 0)
+                    //item sprite
+                    var tas = (who.mostRecentlyGrabbedItem as SimpleObject).getTemporarySpriteForAnimation(who);
+                    Game1.currentLocation.temporarySprites.Add(tas);
+                    //poof
+                    Game1.currentLocation.temporarySprites.Add(new TemporaryAnimatedSprite(10, who.position + new Vector2((float)(Game1.tileSize / 2), (float)(-(float)Game1.tileSize * 3 / 2)), Color.White, 8, false, 100f, 0, -1, -1f, -1, 0)
                     {
                         motion = new Vector2(0f, -0.1f)
                     });

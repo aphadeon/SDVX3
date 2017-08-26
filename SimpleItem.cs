@@ -53,7 +53,7 @@ namespace SDVX3
 
         public virtual Rectangle GetSpriteSourceRect()
         {
-            return new Rectangle(0, 0, 32, 32);
+            return new Rectangle(0, 0, 16, 16);
         }
 
         public override bool isActionable(StardewValley.Farmer who)
@@ -113,11 +113,11 @@ namespace SDVX3
             } else
             {
                 //perform a basic pickup
-                if (who.IsMainPlayer && who.addItemToInventoryBool(this, false))
+                if (who.IsMainPlayer && who.addItemToInventoryBool(this, true))
                 {
-                    who.mostRecentlyGrabbedItem = null; //cancel animation, because we don't control the sprite used
                     who.currentLocation.objects.Remove(this.tileLocation);
                     Game1.playSound("coin");
+                    tileLocation = Vector2.Zero;
                     return true;
                 } else
                 {
@@ -134,6 +134,12 @@ namespace SDVX3
             return si;
         }
 
+        public virtual TemporaryAnimatedSprite getTemporarySpriteForAnimation(StardewValley.Farmer f)
+        {
+            var tas = new TemporaryAnimatedSprite(SDVX3Mod.texture, GetSpriteSourceRect(), 2500f, 1, 0, f.position + new Vector2(0f, (float)(-(float)Game1.tileSize * 2 + 4)), false, false, 1f, 0f, Color.White, (float)Game1.pixelZoom, 0, 0, 0);
+            tas.motion = new Vector2(0f, -0.1f);
+            return tas;
+        }
 
         public override void drawWhenHeld(SpriteBatch spriteBatch, Vector2 objectPosition, StardewValley.Farmer f)
         {
